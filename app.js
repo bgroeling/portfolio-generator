@@ -1,4 +1,5 @@
 const inquirer = require('inquirer');
+const { connectableObservableDescriptor } = require('rxjs/internal/observable/ConnectableObservable');
 
 
 const promptUser = () => {
@@ -6,17 +7,32 @@ const promptUser = () => {
     {
       type: 'input',
       name: 'name',
-      message: 'What is your name?'
+      message: 'What is your name?',
+      validate: nameInput => {
+        if (nameInput) {
+          return true;
+        } else {
+          console.log('Please enter your name!');
+          return false;
+        }
+      }
     },
     {
       type: 'input',
       name: 'github',
-      message: 'Enter your GitHub Username'
+      message: 'Enter your GitHub Username',
+      validate: githubInput => {
+        if (githubInput) {
+          return true;
+        } else {
+          console.log('Please enter your Username');
+        }
+      }
     },
     {
       type: 'input',
       name: 'about',
-      message: 'Provide some information about yourself:'
+      message: 'Provide some informati(on about yourself:'
     }
   ]);
 };
@@ -34,12 +50,26 @@ Add a New Project
     {
       type: 'input',
       name: 'name',
-      message: 'What is the name of your project?'
+      message: 'What is the name of your project?',
+      validate: projectnameInput => {
+        if (projectnameInput) {
+          return true;
+        } else {
+          console.log ('Please enter project name');
+        }
+      }
     },
     {
       type: 'input',
       name: 'description',
-      message: 'Provide a decription of the project (Required)'
+      message: 'Provide a decription of the project (Required)',
+      validate: projectdescriptionInput => {
+        if(projectdescriptionInput) {
+          return true;
+        } else {
+          console.log ('Please provide a project description');
+        }
+      }
     },
     {
       type: 'checkbox',
@@ -50,7 +80,14 @@ Add a New Project
     {
       type: 'input',
       name: 'link',
-      message: 'Enter the Github link to your project. (Required)'
+      message: 'Enter the Github link to your project. (Required)',
+      validate: projectlinkInput => {
+        if(projectlinkInput) {
+          return true;
+        } else {
+          console.log ('Please include the github link');
+        }
+      }
     },
     {
       type: 'confirm',
